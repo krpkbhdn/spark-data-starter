@@ -1,0 +1,2 @@
+org.springframework.context.ApplicationContextInitializer=ua.edu.nubip.sparkdatastarter.unsafe.SparkDataApplicationContextInitializer
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=/
