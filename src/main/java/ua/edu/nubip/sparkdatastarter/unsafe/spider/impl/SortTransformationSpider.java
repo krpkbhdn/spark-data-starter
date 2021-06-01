@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import scala.Tuple2;
 import ua.edu.nubip.sparkdatastarter.unsafe.spider.TransformationSpider;
 import ua.edu.nubip.sparkdatastarter.unsafe.transformation.SparkTransformation;
-import ua.edu.nubip.sparkdatastarter.unsafe.transformation.impl.SortTransformation;
+import ua.edu.nubip.sparkdatastarter.unsafe.transformation.impl.OrderByTransformation;
 import ua.edu.nubip.sparkdatastarter.unsafe.util.WordsMatcher;
 
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class SortTransformationSpider implements TransformationSpider {
 
-    private final SortTransformation sortTransformation;
+    private final OrderByTransformation orderByTransformation;
 
     @Override
     public Tuple2<SparkTransformation, List<String>> createTransformation(List<String> remainingWords, Set<String> fieldNames) {
@@ -27,6 +27,6 @@ public class SortTransformationSpider implements TransformationSpider {
             additionalFields.add(WordsMatcher.findAndRemoveMatchingPiecesIfExists(fieldNames, remainingWords));
         }
         additionalFields.add(0, fieldName);
-        return new Tuple2<>(sortTransformation, additionalFields);
+        return new Tuple2<>(orderByTransformation, additionalFields);
     }
 }
