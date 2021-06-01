@@ -11,6 +11,12 @@ import ua.edu.nubip.sparkdatastarter.unsafe.extractor.DataExtractor;
 public class CsvDataExtractor implements DataExtractor {
     @Override
     public Dataset<Row> readData(String pathToData, ConfigurableApplicationContext context) {
-        return context.getBean(SparkSession.class).read().option("header", true).option("inferSchema", true).csv(pathToData);
+        return context.getBean(SparkSession.class).read()
+                .format("com.databricks.spark.csv")
+                .option("header", true)
+                .option("inferSchema", true)
+                .option("mode", "DROPMALFORMED")
+                .option("dateFormat", "dd.mm.yyyy")
+                .csv(pathToData);
     }
 }

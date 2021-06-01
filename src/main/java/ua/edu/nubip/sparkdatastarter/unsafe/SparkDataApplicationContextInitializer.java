@@ -32,7 +32,10 @@ public class SparkDataApplicationContextInitializer implements ApplicationContex
     }
 
     private void registerSparkBeans(ConfigurableApplicationContext context) {
-        SparkSession sparkSession = SparkSession.builder().master("local").appName(context.getEnvironment().getProperty("spark.app-name")).getOrCreate();
+        SparkSession sparkSession = SparkSession.builder()
+                .master(context.getEnvironment().getProperty("spark.master"))
+                .appName(context.getEnvironment().getProperty("spark.app-name"))
+                .getOrCreate();
         JavaSparkContext sc = new JavaSparkContext(sparkSession.sparkContext());
         context.getBeanFactory().registerSingleton("sparkSession", sparkSession);
         context.getBeanFactory().registerSingleton("sparkContext", sc);
