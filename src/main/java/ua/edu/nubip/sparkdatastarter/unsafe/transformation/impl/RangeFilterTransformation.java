@@ -13,10 +13,8 @@ import java.util.List;
 public class RangeFilterTransformation implements FilterTransformation {
     @Override
     public Dataset<Row> transform(Dataset<Row> dataset, List<String> fieldNames, OrderedBag<Object> args) {
-        Dataset<Row> dataset1 = dataset
+        return dataset
                 .filter(functions.to_date(functions.col(fieldNames.get(0)), "dd.MM.yyyy")
                         .between(functions.lit(args.takeAndRemove()), functions.lit(args.takeAndRemove())));
-        dataset1.show();
-        return dataset1;
     }
 }
